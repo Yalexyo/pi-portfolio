@@ -88,9 +88,13 @@ export default async function RootLayout({
                   const resolvedTheme = 'dark';
                   root.setAttribute('data-theme', resolvedTheme);
                   
-                  // Apply any saved style overrides
+                  // Apply any saved style overrides (but not theme to ensure dark mode by default)
                   const styleKeys = Object.keys(config);
                   styleKeys.forEach(key => {
+                    // Skip theme key to ensure dark mode is always the default
+                    if (key === 'theme') {
+                      return;
+                    }
                     const value = localStorage.getItem('data-' + key);
                     if (value) {
                       root.setAttribute('data-' + key, value);
