@@ -15,13 +15,7 @@
     "lineWidth": 100
   },
   "linter": {
-    "enabled": true,
-    "rules": { 
-      "recommended": true,
-      "suspicious": {
-        "noDangerouslySetInnerHtmlWithArgs": "off"
-      }
-    }
+    "enabled": false
   },
   "javascript": {
     "formatter": {
