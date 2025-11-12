@@ -84,24 +84,19 @@ export default async function RootLayout({
                     return themeValue;
                   };
                   
-                  // Force dark theme by default
-                  root.setAttribute('data-theme', 'dark');
+                  // Get saved theme from localStorage or use default
+                  const savedTheme = localStorage.getItem('data-theme');
+                  const theme = resolveTheme(savedTheme || defaultTheme);
+                  root.setAttribute('data-theme', theme);
                   
-                  // Apply any saved style overrides (but not theme to ensure dark mode by default)
+                  // Apply any saved style overrides
                   const styleKeys = Object.keys(config);
                   styleKeys.forEach(key => {
-                    // Skip theme to ensure dark mode is always the default
-                    if (key === 'theme') {
-                      return;
-                    }
                     const value = localStorage.getItem('data-' + key);
                     if (value) {
                       root.setAttribute('data-' + key, value);
                     }
                   });
-                  
-                  // Ensure theme is always dark and never read from localStorage
-                  root.setAttribute('data-theme', 'dark');
                 } catch (e) {
                   console.error('Failed to initialize theme:', e);
                   document.documentElement.setAttribute('data-theme', 'dark');
