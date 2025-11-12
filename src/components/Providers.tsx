@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   BorderStyle,
   ChartMode,
@@ -21,10 +22,39 @@ import { style, dataStyle } from "../resources";
 import { iconLibrary } from "../resources/icons";
 
 export function Providers({ children }: { children: React.ReactNode }) {
+  const [currentTheme, setCurrentTheme] = useState<string>(style.theme);
+
+  useEffect(() => {
+    // Check initial theme
+    const savedTheme = localStorage.getItem("data-theme") || style.theme;
+    setCurrentTheme(savedTheme);
+    document.documentElement.setAttribute("data-theme", savedTheme);
+
+    // Listen for theme changes
+    const handleThemeChange = () => {
+      const newTheme = localStorage.getItem("data-theme") || style.theme;
+      if (newTheme !== currentTheme) {
+        setCurrentTheme(newTheme);
+        document.documentElement.setAttribute("data-theme", newTheme);
+      }
+    };
+
+    // Listen for storage events (when theme changes in another tab/window)
+    window.addEventListener("storage", handleThemeChange);
+
+    // Listen for custom theme change events
+    window.addEventListener("themechange", handleThemeChange);
+
+    return () => {
+      window.removeEventListener("storage", handleThemeChange);
+      window.removeEventListener("themechange", handleThemeChange);
+    };
+  }, [currentTheme]);
+
   return (
     <LayoutProvider>
       <ThemeProvider
-        theme={style.theme}
+        theme={currentTheme as "dark" | "light" | "system"}
         brand={style.brand as Schemes}
         accent={style.accent as Schemes}
         neutral={style.neutral as NeutralColor}

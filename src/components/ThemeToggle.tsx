@@ -24,10 +24,20 @@ export const ThemeToggle: React.FC = () => {
   const icon = currentTheme === "dark" ? "light" : "dark";
   const nextTheme = currentTheme === "light" ? "dark" : "light";
 
+  const handleThemeChange = () => {
+    setTheme(nextTheme);
+    // Update localStorage
+    localStorage.setItem("data-theme", nextTheme);
+    // Update DOM attribute
+    document.documentElement.setAttribute("data-theme", nextTheme);
+    // Dispatch custom event for Providers to listen
+    window.dispatchEvent(new CustomEvent("themechange"));
+  };
+
   return (
     <ToggleButton
       prefixIcon={icon}
-      onClick={() => setTheme(nextTheme)}
+      onClick={handleThemeChange}
       aria-label={`Switch to ${nextTheme} mode`}
     />
   );
