@@ -52,10 +52,10 @@ export default async function RootLayout({
               (function() {
                 try {
                   const root = document.documentElement;
-                  const defaultTheme = 'dark';
                   
                   // Set defaults from config
                   const config = ${JSON.stringify({
+                    theme: style.theme,
                     brand: style.brand,
                     accent: style.accent,
                     neutral: style.neutral,
@@ -73,33 +73,13 @@ export default async function RootLayout({
                     root.setAttribute('data-' + key, value);
                   });
                   
-                  // Resolve theme - use saved theme or default to dark
-                  const resolveTheme = (themeValue) => {
-                    if (!themeValue) {
-                      return defaultTheme;
-                    }
-                    if (themeValue === 'system') {
-                      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                    }
-                    return themeValue;
-                  };
-                  
-                  // Get saved theme from localStorage or use default
+                  // Load theme from localStorage if exists
                   const savedTheme = localStorage.getItem('data-theme');
-                  const theme = resolveTheme(savedTheme || defaultTheme);
-                  root.setAttribute('data-theme', theme);
-                  
-                  // Apply any saved style overrides
-                  const styleKeys = Object.keys(config);
-                  styleKeys.forEach(key => {
-                    const value = localStorage.getItem('data-' + key);
-                    if (value) {
-                      root.setAttribute('data-' + key, value);
-                    }
-                  });
+                  if (savedTheme) {
+                    root.setAttribute('data-theme', savedTheme);
+                  }
                 } catch (e) {
                   console.error('Failed to initialize theme:', e);
-                  document.documentElement.setAttribute('data-theme', 'dark');
                 }
               })();
             `,
