@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-import { Fade, Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
+import { Fade, Line, Row, ToggleButton } from "@once-ui-system/core";
 
 import { routes, display, about, blog, work, gallery } from "@/resources";
 import { ThemeToggle } from "./ThemeToggle";
