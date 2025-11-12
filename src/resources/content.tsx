@@ -2,9 +2,9 @@ import type { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } fro
 import { Line, Logo, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
-  firstName: "Selene",
-  lastName: "Yu",
-  name: "Selene Yu",
+  firstName: "Jinyoo",
+  lastName: "Li",
+  name: "Jinyoo Li",
   role: "Design Engineer",
   avatar: "/images/avatar.jpg",
   email: "example@gmail.com",
@@ -51,7 +51,7 @@ const home: Home = {
   description: `Portfolio website showcasing my work as a ${person.role}`,
   headline: <>Building bridges between design and code</>,
   featured: {
-    display: true,
+    display: false,
     title: (
       <Row gap="12" vertical="center">
         <strong className="ml-4">Once UI</strong>{" "}
@@ -65,7 +65,7 @@ const home: Home = {
   },
   subline: (
     <>
-      I'm Selene, a design engineer at{" "}
+      I'm Jinyoo, a design engineer at{" "}
       <Logo
         dark
         icon="/trademarks/wordmark-dark.svg"
@@ -98,8 +98,8 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
+        Jinyoo is a Jakarta-based design engineer with a passion for transforming complex challenges
+        into simple, elegant design solutions. His work spans digital interfaces, interactive
         experiences, and the convergence of design and technology.
       </>
     ),
